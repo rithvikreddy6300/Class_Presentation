@@ -1,0 +1,255 @@
+\documentclass{beamer}
+\usepackage{listings}
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetikzlibrary{calc,math}
+\usepackage{float}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\usepackage[export]{adjustbox}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usetheme{Boadilla}
+\title{Standard Error in Simple Random Sampling}
+\author{S. Rithvik Reddy}
+\institute{IIT H (CSE)}
+\date{\today}
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+\section{Question}
+\begin{frame}
+\frametitle{Let's understand some terms.}
+\begin{block}{What is simple random sampling ? }
+$\bullet$ It is a sampling model used in Inferential statistics.
+
+$\bullet$ \textbf{Inferential statistics}  is one of the two statistical methods employed to analyse data. It is used make inferences about a population by examining one or more random samples drawn from that population.
+
+Eg:- We can arrive at a good estimation of average CGPA of 3000 IIT H students just by observing few 100 students CGPA and using inferential statistics.
+
+$
+\bullet$ Descriptive statistics allow us to describe a data set, while inferential statistics allow us to make inferences based on a data set.
+
+
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{block}{Simple Random Sampling}
+$\bullet$ Simple random sampling (SRS) is a method of selection of a sample comprising of n number of sampling units out of the population having N number of sampling units such that every sampling unit has an \textbf{equal chance} of being chosen. 
+\end{block}
+
+\begin{block}{Example}
+If you want to know the rating that IIT H students give to their faculty.
+
+You have two options
+\begin{enumerate}
+\item Ask all the students to give a review.
+\item Ask few 100 and use SRS concept to find the range of average rating.
+\end{enumerate} 
+Obviously second one is more convenient and less time taking at the cost of precision.
+
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{block}{Simple random sampling Vs Random sampling}
+$\bullet$ The above example is branch dependent as each branch will not have same amount of students or same faculty.
+
+$\bullet$ If CSE has the highest no of students among all branches then the chance of a person being from CSE in the 100 you who gave review will be high and the data will be biased.
+
+$\bullet$ If all branches has the same no of students then the chance of a person being from a given branch in the 100 you who gave review will be same  and the data will be unbiased.
+
+$\bullet$ The former case represents the Random sampling while the later one represents Simple Random Sampling
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+Simple Random Sampling can be done in two ways
+\begin{block}{SRSWOR}
+\textbf{Simple Random sampling With out Replacement} is a method of selection of n units out of the N units one by one such that at any stage of selection, any one of the remaining units have the same chance of being selected.
+
+$\bullet$ A selection in this way can be done in $\binom{N}{n}$ ways.
+ 
+\end{block}
+
+\begin{block}{SRSWR}
+\textbf{Simple Random Sampling With Replacement} is a method of selection of n units out of the N units one by one such that at each stage of selection, each unit has an equal chance of being selected, i.e., 1/ N .
+
+$\bullet$ A selection in this way can be done in $N^n$ ways. 
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Notations}
+
+n: Sample class size.
+
+N: Population class size.
+
+y : Sample under consideration.
+
+$y_i$ : Value of the characteristic $i^{th}$ sample in the sample class.
+
+Y : Element of population class.
+
+$Y_i$ : Value of the characteristic $i^{th}$ element in the population class.
+
+$\overline{y}=\dfrac{1}{n}\sum_{i=1}^{n}y_i$ : Average of sample class.
+
+$\overline{Y}=\dfrac{1}{N}\sum_{i=1}^{N}Y_i$ : Average of population class.
+
+$S^2 = \dfrac{1}{N-1} \sum_{i=1}^{N} (Y_i-\bar{Y})^2$ : S=Std dev of the population class.
+
+$\sigma^2=\dfrac{1}{N} \sum_{i=1}^{N} (Y_i-\bar{Y})^2$ : Variance of the population class.
+
+$s^2 = \dfrac{1}{n-1} \sum_{i=1}^{n} (y_i-\bar{y})^2$ : S=Std dev of the sample class.
+
+\end{frame}
+\begin{frame}
+\frametitle{Standard Error of Mean (SE)}
+$\bullet$ Knowing the mean of the sample ($\overline{y}$) we can estimate the mean of population ($\overline{Y}$).
+
+\begin{align}
+\overline{Y}&=\overline{y} \pm SE\\
+SE &= \dfrac{s}{\sqrt{n}}
+\end{align}
+Where s is the standard deviation of means of all possible sample classes of size n.
+\begin{align}
+\implies & SE= \sqrt{\dfrac{Var(\overline{y})}{n}}
+\end{align}
+\end{frame}
+
+\begin{frame}
+\frametitle{\textbf{Variance of the $\overline{y}$}}
+Assume variance of each term is $\sigma^2$.
+\begin{align*}
+Var(\overline{y})&= E(\overline{y}-\overline{Y})^2\\
+& = E\left[\dfrac{1}{n} \sum_{i=1}^{n}(y_i-\overline{Y})\right]^2\\
+& = E\left[\dfrac{1}{n^2} \sum_{i=1}^{n} (y_i-\overline{Y})^2 + \dfrac{1}{n^2} \underset{1\leq i\neq j\leq n}{\sum\sum}\, (y_i-\overline{Y})(y_j-\overline{Y})\right]\\
+& = \dfrac{1}{n^2}\sum_{i=1}^{n} E(y_i-\overline{Y})^2+\dfrac{1}{n^2} \underset{1\leq i\neq j\leq n}{\sum\sum}\, E(y_i-\overline{Y})(y_j-\overline{Y})\\
+ \text{Let } K &=\underset{1\leq i\neq j\leq n}{\sum\sum}\, E(y_i-\overline{Y})(y_j-\overline{Y})
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{align}
+& = \dfrac{1}{n^2}\sum_{i=1}^{n} \sigma^2 + \dfrac{K}{n^2}\\
+& = \dfrac{1}{n^2} n \sigma^2 +\dfrac{K}{n^2} \\
+&= \dfrac{N-1}{Nn} S^2+\dfrac{K}{n^2}\label{eq_1}
+\end{align}
+$\bullet$ Finding the value of K in case of SRSWR and SRSWOR allows us to calculate the variance of mean.
+\end{frame}
+
+\begin{frame}
+\frametitle{K value in case of SRSWOR}
+\begin{align*}
+&K=\underset{1\leq i\neq j\leq n}{\sum\sum}\, E(y_i-\overline{Y})(y_j-\overline{Y})\\
+&\text{Consider}\\
+&E(y_i-\overline{Y})(y_j-\overline{Y})=\dfrac{1}{N(N-1)}\underset{1\leq k\neq l\leq n}{\sum\sum}\, E(y_k-\overline{Y})(y_l-\overline{Y})\\
+&\text{Since}\\
+&\left[\sum_{k=1}^N(y_k-\overline{Y})\right]^2=\sum_{i=1}^{N}(y_k-\overline{Y})^2+
+\underset{1\leq k\neq l\leq n}{\sum\sum}\, E(y_k-\overline{Y})(y_l-\overline{Y})\\
+&\implies 0 = (N-1)S^2+\underset{1\leq k\neq l\leq n}{\sum\sum}\, E(y_k-\overline{Y})(y_l-\overline{Y})\\
+& \implies E(y_i-\overline{Y})(y_j-\overline{Y})=\dfrac{1}{N(N-1)}(N-1)(-S^2)
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{align*}
+& \implies K = n(n-1)\dfrac{(-S^2)}{N}
+\end{align*}
+Putting this value in (\ref{eq_1}) gives us 
+\begin{align}
+Var(\overline{y})_{WOR} & = \dfrac{N-1}{Nn} S^2+ \dfrac{n-1(-S^2)}{Nn}\\
+& = \dfrac{N-n}{Nn} S^2 \label{eq_2}
+\end{align}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{K value in case of SRSWR}
+\begin{align*}
+&K=\underset{1\leq i\neq j\leq n}{\sum\sum}\, E(y_i-\overline{Y})(y_j-\overline{Y})
+\end{align*}
+Since we are selecting the samples with replacements choosing $i^{th}$ and $j^{th}$ sample is independent of each other. So,
+\begin{align*}
+K&=\underset{1\leq i\neq j\leq n}{\sum\sum}\, E(y_i-\overline{Y})E(y_j-\overline{Y})\\
+& = 0\\
+& \text{(Since deviation about mean is 0)}
+\end{align*}
+\end{frame}
+
+\begin{frame}
+Putting K=0 in (\ref{eq_1}) we get 
+\begin{align}
+V(\overline{y})_{WR} & = \dfrac{N-1}{Nn} S^2\label{eq_3}
+\end{align}
+\begin{block}{Standard Error of mean }
+From equation \eqref{eq_2}  standard error of mean of sample class chosen  without repetition is
+\begin{align}
+{SE}_{WOR} & = \dfrac{s}{\sqrt{n}}\\
+& = \sqrt{\dfrac{V(\overline{y})_{WOR}}{n}}\\
+& = \sqrt{\dfrac{N-n}{Nn^2}}S \label{eq_4}
+\end{align} 
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Standard Error of Mean}
+From equation \eqref{eq_3}  standard error of mean of sample class chosen with repetition
+\begin{align}
+{SE}_{WR} & = \sqrt{\dfrac{V(\overline{y})_WR}{n}}\\
+& = \sqrt{\dfrac{N-1}{Nn^2}}S \label{eq_5}
+\end{align}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{My Question}
+\begin{block}{UGC/MATH 2018(June maths set-a), Q.58}
+\begin{enumerate}
+\item A simple random variable of size n will be drawn from a class of 125 students, and the mean mathematics score of the sample will be computed, If the standard error of the sample mean for "with replacement sampling" is twice as much as the standard error of the sample mean for "without replacement sampling", the value of n is ? 
+	\begin{enumerate}
+	\item 32
+	\item 63
+	\item 79
+	\item 94
+	\end{enumerate}
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution}
+Given to find the value of n if $2 \times {SE}_{WOR} =  {SE}_{WR}$.
+From \eqref{eq_4} and \eqref{eq_5} we can write 
+\begin{align*}
+& 2\sqrt{\dfrac{N-n}{Nn^2}}S= \sqrt{\dfrac{N-1}{Nn^2}}S\\
+\implies & 4(N-n) = N-1\\
+\implies & 4N+1-N=4n\\
+\implies & 4n=3(125)+1\\
+\implies & n=94
+\end{align*}
+Therefore the sample size for the given condition to be met is n=94.(\textbf{Option 4})
+\end{frame}
+
+
+\end{document}
+
+
